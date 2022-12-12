@@ -1,5 +1,3 @@
-use std::borrow::Cow;
-
 use dioxus::prelude::*;
 use chrono::prelude::*;
 use gloo_net::http::Request;
@@ -72,6 +70,7 @@ pub fn HomePage(cx: Scope) -> Element {
         }
 
         section {
+            id: "about",
             class: "bg-transparent",
             div {
                 class: "gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6",
@@ -136,7 +135,7 @@ pub fn BlogPostCard(cx: Scope, title: String, content: String, image: String, sl
                     "{content}"
                 }
                 Link {
-                    to: "/blog?slug={slug}",
+                    to: "/blog/{slug}",
                     class: "inline-flex items-center text-sm font-medium text-center text-sky-400 hover:text-rose-400 duration-200",
                     "Read more ➜"
                 }
@@ -202,19 +201,6 @@ fn fetch_post(cx: &Scope<BlogPostPageProps>, state: &UseState<BlogPostModel>, sl
 }
 
 pub fn BlogPage(cx: Scope) -> Element {
-    let window = web_sys::window().unwrap();
-    let location = window.location();
-    let current_url = location.to_locale_string().as_string().unwrap();
-    let url_parsed = url::Url::parse(current_url.as_str()).unwrap();
-    let query_params = url_parsed.query_pairs();
-    for (param, value) in query_params {
-        if param == Cow::from("slug") {
-            return cx.render(rsx!{
-                BlogPostPage { slug: value.to_string() }
-            })
-        }
-    }
-
     let post_state: &UseState<Vec<BlogPostModel>> = use_state(&cx, || vec![BlogPostModel::loading()]);
     cx.use_hook(|_| fetch_posts(&cx, &post_state));
 
@@ -244,7 +230,7 @@ pub fn BlogPage(cx: Scope) -> Element {
                                     }
                                 }
                                 a {
-                                    href: "/blog?slug={model.slug}",
+                                    href: "/blog/{model.slug}",
                                     class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-sky-400 rounded-lg hover:text-rose-400 duration-200",
                                     "Read More ➜"
                                 },
@@ -275,7 +261,9 @@ pub fn BlogPage(cx: Scope) -> Element {
 }
 
 #[inline_props]
-fn BlogPostPage(cx: Scope, slug: String) -> Element {
+pub fn BlogPostPage(cx: Scope) -> Element {
+    let slug = use_route(&cx);
+    let slug = slug.last_segment().unwrap().to_string();
     let post_state = use_state(&cx, BlogPostModel::loading);
     cx.use_hook(|_| fetch_post(&cx, post_state, slug.to_owned()));
 

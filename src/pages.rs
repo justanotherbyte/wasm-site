@@ -164,7 +164,7 @@ impl BlogPostModel {
             name: "Loading...".into(),
             description: "Hang on tight! Just warming up our gears here!".into(),
             created_at: "0000-00-0".into(),
-            image: "/images/loading-transparent.png".into(),
+            image: "/loading.svg".into(),
             category: "Loading...".into()
          }
     }

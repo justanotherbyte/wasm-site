@@ -5,6 +5,7 @@ use chrono::prelude::*;
 use gloo_net::http::Request;
 use serde::Deserialize;
 use dioxus_markdown::Markdown;
+use dioxus_router::Link;
 
 pub fn HomePage(cx: Scope) -> Element {
     let now = chrono::Utc::now();
@@ -50,8 +51,8 @@ pub fn HomePage(cx: Scope) -> Element {
                         class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-rose-400 duration-200",
                         "About"
                     },
-                    a {
-                        href: "/blog",
+                    Link {
+                        to: "/blog",
                         class: "inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-rose-400 duration-200",
                         "Blog"
                     },

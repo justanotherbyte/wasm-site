@@ -9,6 +9,7 @@ edition = "2021"
 chrono = "0.4.23"
 dioxus = { version = "0.2.4", features = ["web", "router"] }
 dioxus-html-macro = "0.2.0"
+dioxus-router = "0.2.3"
 dioxus_markdown = { git = "https://github.com/DioxusLabs/markdown", version = "0.1.0" }
 gloo-net = "0.2.5"
 js-sys = "0.3.60"

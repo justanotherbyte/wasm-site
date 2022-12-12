@@ -98,11 +98,11 @@ pub fn HomePage(cx: Scope) -> Element {
                 div {
                     class: "grid grid-cols-2 gap-4 mt-8",
                     img {
-                        class: "w-full rounded-lg",
+                        class: "w-full rounded-lg hover:-translate-y-6 duration-300",
                         src: "/images/img328.jpg"
                     }
                     img {
-                        class: "mt-4 w-full lg:mt-10 rounded-lg",
+                        class: "mt-4 w-full lg:mt-10 rounded-lg hover:translate-y-6 duration-300",
                         src: "/images/img321.jpg"
                     }
                 }
@@ -135,8 +135,8 @@ pub fn BlogPostCard(cx: Scope, title: String, content: String, image: String, sl
                     class: "mb-3 font-normal text-zinc-700 dark:text-zinc-400",
                     "{content}"
                 }
-                a {
-                    href: "/blog?slug={slug}",
+                Link {
+                    to: "/blog?slug={slug}",
                     class: "inline-flex items-center text-sm font-medium text-center text-sky-400 hover:text-rose-400 duration-200",
                     "Read more ➜"
                 }

@@ -16,7 +16,7 @@ jobs:
             override: true
             target: wasm32-unknown-unknown
       - run: cargo install --git https://github.com/dioxuslabs/cli
-      - run: dioxus build --release
+      - run: trunk build --release .
       - name: deploy
         uses: crazy-max/ghaction-github-pages@v3
         with:

@@ -17,7 +17,7 @@ pub fn HomePage(cx: Scope) -> Element {
                 div {
                     class: "mr-auto place-self-center lg:col-span-7",
                     h1 {
-                        class: "max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white",
+                        class: "max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white",
                         "Hi. I'm Viswa"
                     }
                     p {
@@ -78,12 +78,16 @@ pub fn HomePage(cx: Scope) -> Element {
                 div {
                     class: "font-light text-zinc-500 sm:text-lg dark:text-zinc-400",
                     h2 {
-                        class: "mb-4 text-4xl tracking-tight font-extrabold text-zinc-800 dark:text-white",
+                        class: "mb-4 text-4xl tracking-tight font-extrabold text-white",
                         "About Me"
                     }
                     p {
                         class: "mb-4",
-                        "I'm a {years_since} year old currently studying in England. I have a huge interest in Machine Learning, Mathematics and Computer Science as a whole."
+                        "I'm a {years_since} year old currently studying in England. I have a huge interest in Machine Learning, Mathematics and Computer Science as a whole"
+                        Link {
+                            to: "/upload",
+                            "."
+                        }
                     }
                     p {
                         "I'll be beginning my journey on the ",
@@ -127,12 +131,12 @@ pub fn BlogPostCard(cx: Scope, title: String, content: String, image: String, sl
                 class: "p-3 mt-3",
                 a {
                     h5 {
-                        class: "mb-2 text-2xl font-bold tracking-tight text-zinc-800 dark:text-white",
+                        class: "mb-2 text-2xl font-bold tracking-tight text-white",
                         "{title}"
                     }
                 }
                 p {
-                    class: "mb-3 font-normal text-zinc-700 dark:text-zinc-400",
+                    class: "mb-3 font-normal text-zinc-400",
                     "{content}"
                 }
                 Link {
@@ -221,11 +225,11 @@ pub fn BlogPage(cx: Scope) -> Element {
                             div {
                                 class: "mr-auto place-self-center lg:col-span-7",
                                 h1 {
-                                    class: "max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white",
+                                    class: "max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white",
                                     "{model.name}"
                                 }
                                 p {
-                                    class: "max-w-2xl mb-6 font-light text-zinc-500 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-400",
+                                    class: "max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl text-zinc-400",
                                     p {
                                         "{model.description}"
                                     }
@@ -290,10 +294,10 @@ pub fn BlogPostPage(cx: Scope) -> Element {
                 src: "{post.image}"
             }
             Markdown {
-                class: "text-zinc-300 mx-auto text-left mt-14 leading-relaxed max-w-5xl",
+                class: "text-zinc-300 mx-auto text-left mt-14 leading-relaxed max-w-5xl m-3 rounded-md duration-300 p-3",
+                id: "post-content",
                 content: post.content.as_str()
             }
         }
     })
 }
-

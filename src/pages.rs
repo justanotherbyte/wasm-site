@@ -252,7 +252,7 @@ pub fn BlogPage(cx: Scope) -> Element {
         }
 
         div {
-            class: "container mx-auto grid grid-cols-3",
+            class: "container mx-auto grid sm:grid-cols-1 md:grid-cols-3 space-x-3 p-3",
             posts_parsed.iter().map(|model| rsx!{
                 BlogPostCard { title: model.name.clone(), content: model.description.clone(), image: model.image.clone(), slug: model.slug.clone() }
             })

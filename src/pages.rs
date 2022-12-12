@@ -234,8 +234,8 @@ pub fn BlogPage(cx: Scope) -> Element {
                                         "{model.description}"
                                     }
                                 }
-                                a {
-                                    href: "/blog/{model.slug}",
+                                Link {
+                                    to: "/blog/{model.slug}",
                                     class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-sky-400 rounded-lg hover:text-rose-400 duration-200",
                                     "Read More ➜"
                                 },

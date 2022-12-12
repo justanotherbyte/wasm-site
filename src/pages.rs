@@ -63,7 +63,8 @@ pub fn HomePage(cx: Scope) -> Element {
                 div {
                     class: "hidden lg:mt-0 lg:col-span-5 lg:flex",
                     img {
-                        src: "/avatar.svg"
+                        src: "/images/avatar.png",
+                        class: "rounded-full"
                     }
                 }
             }

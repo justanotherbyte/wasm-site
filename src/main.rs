@@ -7,7 +7,7 @@ use dioxus::{
     router::{Route, Router}
 };
 
-use pages::{HomePage, BlogPage, BlogPostPage, NotebooksPage};
+use pages::{HomePage, BlogPage, BlogPostPage, NotebooksPage, JourneyPage};
 
 fn app(cx: Scope) -> Element {
     cx.render(rsx!{
@@ -19,6 +19,10 @@ fn app(cx: Scope) -> Element {
             Route {
                 to: "/notebooks",
                 NotebooksPage {}
+            },
+            Route {
+                to: "/journey",
+                JourneyPage {}
             },
             Route {
                 to: "/blog",

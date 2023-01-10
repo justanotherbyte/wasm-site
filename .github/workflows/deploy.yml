@@ -18,6 +18,7 @@ jobs:
       - run: cargo install --locked trunk
       - run: trunk build --dist ./
       - run: touch .nojekyll
+      - run: echo "justanotherbyte.me" > CNAME
       - name: deploy
         uses: crazy-max/ghaction-github-pages@v3
         with:

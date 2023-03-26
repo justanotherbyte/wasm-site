@@ -108,11 +108,11 @@ pub fn HomePage(cx: Scope) -> Element {
                     class: "grid grid-cols-2 gap-4 mt-8",
                     img {
                         class: "w-full rounded-lg hover:-translate-y-6 duration-300",
-                        src: "/images/img328.jpg"
+                        src: "https://i.imgur.com/2R80Ujv.png"
                     }
                     img {
                         class: "mt-4 w-full lg:mt-10 rounded-lg hover:translate-y-6 duration-300",
-                        src: "/images/img321.jpg"
+                        src: "https://i.imgur.com/OCicTDs.png"
                     }
                 }
             }

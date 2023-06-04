@@ -20,6 +20,7 @@ jobs:
       - run: trunk build --dist ./
       - run: touch .nojekyll
       - run: echo "justanotherbyte.me" > CNAME
+      - run: mv 404.html ./
       - name: deploy
         uses: crazy-max/ghaction-github-pages@v3
         with:

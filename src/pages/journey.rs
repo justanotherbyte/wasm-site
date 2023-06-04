@@ -127,12 +127,13 @@ pub fn Timeline(cx: Scope) -> Element {
 }
 
 #[inline_props]
-pub fn TimelineEvent<'a>(cx: Scope, title: &'a str, description: &'a str, time: &'a str) -> Element {
-    let colors = vec![
-        "rose",
-        "emerald",
-        "sky"
-    ];
+pub fn TimelineEvent<'a>(
+    cx: Scope,
+    title: &'a str,
+    description: &'a str,
+    time: &'a str,
+) -> Element {
+    let colors = vec!["rose", "emerald", "sky"];
     let color = colors.choose(&mut rand::thread_rng()).unwrap();
     cx.render(rsx!{
         div { class: "flex flex-col sm:relative sm:before:absolute sm:before:top-2 sm:before:w-4 sm:before:h-4 sm:before:rounded-full sm:before:left-[-35px] sm:before:z-[1] before:bg-{color}-400",

@@ -11,9 +11,12 @@
     <meta property="og:url" content="https://justanotherbyte.github.io"/>
     <meta property="og:image" content="/images/avatar.png"/>
     <meta property="og:description" content="👋 Huge Machine Learning enthusiast and a stupid game dev."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet"
-      href="//unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css">
-    <script src="//unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/panda-syntax-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script defer>hljs.highlightAll();</script>
     <style>
         #post-content img {
@@ -31,6 +34,10 @@
             color: rgb(56 189 248);
         }
         #post-content h2 {
+            font-size: xx-large;
+            font-weight: 600;
+        }
+        #post-content h3 {
             font-size: x-large;
             font-weight: 600;
         }
@@ -38,6 +45,7 @@
             background-color: rgb(39 39 42);
             padding: 1rem;
             border-radius: 0.375rem;
+            filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
         }
         .loading {
             display: flex;
@@ -51,7 +59,21 @@
             display: flex;
             justify-content: center;
         }
+        .hljs {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            white-space: pre-wrap;
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
+    <script>
+        function highlightCode() {
+            document.querySelectorAll('.highlight').forEach((el) => {
+                console.log(el);
+                hljs.highlightElement(el);
+            });
+        }
+    </script>
     <title>Viswa</title>
 </head>
 <body id="main" class="bg-zinc-900">

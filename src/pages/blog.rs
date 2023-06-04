@@ -1,10 +1,19 @@
 use dioxus::prelude::*;
-use serde::Deserialize;
+use dioxus_router::{use_route, Link};
 use gloo_net::http::Request;
-use dioxus_markdown::Markdown;
+use serde::Deserialize;
+
+use crate::markdown::markdown_to_html;
+use crate::pages::editor::highlight_code;
 
 #[inline_props]
-pub fn BlogPostCard(cx: Scope, title: String, content: String, image: String, slug: String) -> Element {
+pub fn BlogPostCard(
+    cx: Scope,
+    title: String,
+    content: String,
+    image: String,
+    slug: String,
+) -> Element {
     cx.render(rsx!{
         div {
             class: "max-w-sm bg-white rounded-lg shadow-md bg-zinc-800 p-3 mb-3",
@@ -45,27 +54,27 @@ pub struct BlogPostModel {
     pub description: String,
     pub image: String,
     pub created_at: String,
-    pub category: String
+    pub category: String,
 }
 
 impl BlogPostModel {
     fn loading() -> Self {
-        Self { 
+        Self {
             slug: "".into(),
             content: "".into(),
             name: "Loading...".into(),
             description: "Hang on tight! Just warming up our gears here!".into(),
             created_at: "0000-00-0".into(),
-            image: "/images/loading.gif".into(),
-            category: "Loading...".into()
-         }
+            image: "/images/loading-new.gif".into(),
+            category: "Loading...".into(),
+        }
     }
 }
 
 fn fetch_posts(cx: &Scope, state: &UseState<Vec<BlogPostModel>>) {
     let state = state.to_owned();
     cx.spawn(async move {
-        let resp = Request::new("https://blogserver-quiktea.vercel.app/posts")
+        let resp = Request::new("https://site-functions.vercel.app/posts")
             .send()
             .await
             .unwrap()
@@ -77,9 +86,14 @@ fn fetch_posts(cx: &Scope, state: &UseState<Vec<BlogPostModel>>) {
     });
 }
 
-fn fetch_post(cx: &Scope<BlogPostPageProps>, state: &UseState<BlogPostModel>, slug: String) {
+fn fetch_post(
+    cx: &Scope,
+    state: &UseState<BlogPostModel>,
+    slug: String,
+    md_state: UseState<String>,
+) {
     let state = state.to_owned();
-    let url = format!("https://blogserver-quiktea.vercel.app/post/{}", slug);
+    let url = format!("https://site-functions.vercel.app/post/{}", slug);
     cx.spawn(async move {
         let resp = Request::new(url.as_str())
             .send()
@@ -89,13 +103,16 @@ fn fetch_post(cx: &Scope<BlogPostPageProps>, state: &UseState<BlogPostModel>, sl
             .await
             .unwrap();
 
+        let md_rendered = markdown_to_html(&(resp.content.clone())).await;
+        md_state.set(md_rendered);
         state.set(resp);
     });
 }
 
 pub fn BlogPage(cx: Scope) -> Element {
-    let post_state: &UseState<Vec<BlogPostModel>> = use_state(&cx, || vec![BlogPostModel::loading()]);
-    cx.use_hook(|_| fetch_posts(&cx, &post_state));
+    let post_state: &UseState<Vec<BlogPostModel>> =
+        use_state(&cx, || vec![BlogPostModel::loading()]);
+    cx.use_hook(|| fetch_posts(&cx, &post_state));
 
     let posts_parsed = post_state.get();
 
@@ -104,7 +121,7 @@ pub fn BlogPage(cx: Scope) -> Element {
     cx.render(rsx!{
         section {
             class: "bg-transparent",
-            posts_parsed.iter().rev().map(|model| {
+            posts_parsed.iter().map(|model| {
                 if counter == 0 {
                     counter += 1;
                     rsx!{
@@ -153,12 +170,12 @@ pub fn BlogPage(cx: Scope) -> Element {
     })
 }
 
-#[inline_props]
 pub fn BlogPostPage(cx: Scope) -> Element {
     let slug = use_route(&cx);
     let slug = slug.last_segment().unwrap().to_string();
     let post_state = use_state(&cx, BlogPostModel::loading);
-    cx.use_hook(|_| fetch_post(&cx, post_state, slug.to_owned()));
+    let md_state = use_state(&cx, String::new);
+    cx.use_hook(|| fetch_post(&cx, post_state, slug.to_owned(), md_state.to_owned()));
 
     let post = post_state.get();
 
@@ -181,10 +198,11 @@ pub fn BlogPostPage(cx: Scope) -> Element {
                 class: "w-3/4 mx-auto rounded-lg h-96 object-cover object-bottom",
                 src: "{post.image}"
             }
-            Markdown {
+            div {
                 class: "text-zinc-300 mx-auto text-left mt-14 leading-relaxed max-w-5xl m-3 rounded-md duration-300 p-3",
                 id: "post-content",
-                content: post.content.as_str()
+                dangerous_inner_html: "{md_state}",
+                onmouseover: |_| highlight_code()
             }
         }
     })

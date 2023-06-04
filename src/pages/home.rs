@@ -1,5 +1,6 @@
-use dioxus::prelude::*;
 use chrono::prelude::*;
+use dioxus::prelude::*;
+use dioxus_router::Link;
 
 pub fn HomePage(cx: Scope) -> Element {
     let now = chrono::Utc::now();
@@ -41,9 +42,9 @@ pub fn HomePage(cx: Scope) -> Element {
                         }
                     }
                     Link {
-                        to: "/notebooks",
-                        class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-rose-400 duration-200",
-                        "Notebooks"
+                        to: "https://www.kaggle.com/justanotherbyte",
+                        class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-sky-400 duration-200",
+                        "Kaggle"
                     },
                     Link {
                         to: "/blog",
@@ -52,7 +53,7 @@ pub fn HomePage(cx: Scope) -> Element {
                     },
                     a {
                         href: "https://github.com/justanotherbyte",
-                        class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-rose-400 duration-200",
+                        class: "inline-flex items-center justify-center py-3 mr-3 text-base font-medium text-center text-white rounded-lg hover:text-emerald-400 duration-200",
                         "GitHub"
                     }
                 }

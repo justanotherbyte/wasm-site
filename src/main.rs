@@ -1,16 +1,22 @@
 #![allow(non_snake_case)]
 
+mod markdown;
 mod pages;
 
-use dioxus::{
-    prelude::*,
-    router::{Route, Router}
-};
+use dioxus::prelude::*;
+use dioxus_router::{Route, Router};
+use js_sys::Array;
 
-use pages::{HomePage, BlogPage, BlogPostPage, NotebooksPage, JourneyPage};
+use pages::{BlogEditPage, BlogPage, BlogPostPage, HomePage, JourneyPage, NotebooksPage};
+
+pub fn log(text: &str) {
+    let array = Array::new();
+    array.push(&text.into());
+    web_sys::console::log(&array);
+}
 
 fn app(cx: Scope) -> Element {
-    cx.render(rsx!{
+    cx.render(rsx! {
         Router {
             Route {
                 to: "/",
@@ -31,13 +37,17 @@ fn app(cx: Scope) -> Element {
             Route {
                 to: "/blog/:id",
                 BlogPostPage {}
+            },
+            Route {
+                to: "/edit-blog"
+                BlogEditPage {}
             }
         }
     })
 }
 
 fn main() {
-    dioxus::web::launch(app);
+    dioxus_web::launch(app);
 }
 
 pub fn Navbar(cx: Scope) -> Element {

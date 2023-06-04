@@ -1,22 +1,21 @@
 use dioxus::prelude::*;
-use serde::Deserialize;
 use gloo_net::http::Request;
+use serde::Deserialize;
 
 #[derive(Deserialize, Clone)]
 pub struct RepoNotebook {
     pub name: String,
-    pub html_url: String
+    pub html_url: String,
 }
 
 impl RepoNotebook {
     fn loading() -> Self {
         Self {
             name: "Kind of cold in here, just warming up!".into(),
-            html_url: "/notebooks".into()
+            html_url: "/notebooks".into(),
         }
     }
 }
-
 
 // https://api.github.com/repos/OWNER/REPO/contents/PATH
 fn fetch_notebooks(cx: &Scope, state: &UseState<Vec<RepoNotebook>>) {
@@ -33,8 +32,6 @@ fn fetch_notebooks(cx: &Scope, state: &UseState<Vec<RepoNotebook>>) {
         state.set(resp);
     });
 }
-
-
 
 #[inline_props]
 pub fn NotebookCard(cx: Scope, name: String, hide: bool, url: String) -> Element {
@@ -64,7 +61,7 @@ pub fn NotebookCard(cx: Scope, name: String, hide: bool, url: String) -> Element
 
 pub fn NotebooksPage(cx: Scope) -> Element {
     let book_state: &UseState<Vec<RepoNotebook>> = use_state(&cx, || vec![RepoNotebook::loading()]);
-    cx.use_hook(|_| fetch_notebooks(&cx, &book_state));
+    cx.use_hook(|| fetch_notebooks(&cx, &book_state));
 
     let books = book_state.get();
     let query = use_state(&cx, String::new);

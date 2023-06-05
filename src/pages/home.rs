@@ -16,8 +16,15 @@ pub fn HomePage(cx: Scope) -> Element {
                 return cx.render(rsx!{
                     Link {
                         to: "{path}",
+                        class: "text-zinc-200"
                         id: "spa-hack",
                         "Click if you're not redirected"
+                    },
+                    script {
+                        "
+                        localStorage.removeItem('path');
+                        document.getElementById('spa-hack').click();
+                        "
                     }
                 })
             }

@@ -3,8 +3,28 @@ use dioxus::prelude::*;
 use dioxus_router::Link;
 
 pub fn HomePage(cx: Scope) -> Element {
+    // spa hack
+    let window = web_sys::window();
+    if let Some(window) = window {
+        let storage = window.local_storage();
+        if let Ok(Some(storage)) = storage {
+            crate::log("Storage exists, checking for path");
+            let path = storage.get("path");
+            if let Ok(Some(path)) = path {
+                // if we find a path, create a new Link and click on it
+                // dioxus handles the rest
+                return cx.render(rsx!{
+                    Link {
+                        to: "{path}",
+                        id: "spa-hack",
+                        "Click if you're not redirected"
+                    }
+                })
+            }
+        }
+    };
     let now = chrono::Utc::now();
-    let birthday = chrono::Utc.with_ymd_and_hms(2007, 03, 23, 7, 0, 0).unwrap();
+    let birthday = chrono::Utc.with_ymd_and_hms(2007, 3, 23, 7, 0, 0).unwrap();
     let years_since = now.years_since(birthday).unwrap();
     cx.render(rsx!{
         section {

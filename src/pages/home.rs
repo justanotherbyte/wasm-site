@@ -107,7 +107,7 @@ pub fn HomePage(cx: Scope) -> Element {
                     }
                     p {
                         class: "mb-4",
-                        "I'm a {years_since} year old currently studying in England. I have a huge interest in Machine Learning, Mathematics and Computer Science as a whole"
+                        "I'm a {years_since} year old currently studying in the UK. I have a huge interest in Machine Learning, Mathematics and Computer Science as a whole"
                         Link {
                             to: "/upload",
                             "."

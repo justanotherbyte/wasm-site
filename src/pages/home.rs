@@ -13,7 +13,7 @@ pub fn HomePage(cx: Scope) -> Element {
             if let Ok(Some(path)) = path {
                 // if we find a path, create a new Link and click on it
                 // dioxus handles the rest
-                return cx.render(rsx!{
+                return cx.render(rsx! {
                     Link {
                         to: "{path}",
                         class: "text-zinc-200"
@@ -26,7 +26,7 @@ pub fn HomePage(cx: Scope) -> Element {
                         document.getElementById('spa-hack').click();
                         "
                     }
-                })
+                });
             }
         }
     };
@@ -48,7 +48,7 @@ pub fn HomePage(cx: Scope) -> Element {
                         class: "max-w-2xl mb-6 font-light text-zinc-500 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-400",
                         p {
                             "Nice to meet you! I'm currently a student in England. I love working on projects related to",
-                            a { 
+                            a {
                               class: "text-rose-400 hover:animate-pulse",
                               href: "https://en.wikipedia.org/wiki/Machine_learning",
                               " Machine Learning"
@@ -114,13 +114,13 @@ pub fn HomePage(cx: Scope) -> Element {
                         }
                     }
                     p {
-                        "I'll be beginning my journey on the ",
+                        "I've begun my journey on the ",
                         a {
                             class: "text-sky-400 hover:animate-pulse",
                             href: "https://ibo.org/programmes/diploma-programme/",
                             "International Baccalaureate Diploma "
                         }
-                        "programme soon (I may already be on it, I've just forgotten to update this page). I'd like to study Computer Science at Cambridge or Imperial in the future :D"
+                        "programme, taking IB HL Maths AA, HL Physics and HL Computer Science. I'd like to study Computer Science at Cambridge or Imperial in the future :D"
                     }
                     div {
                         class: "group mt-3 max-w-fit border border-white group-hover:text-black hover:bg-white duration-300 rounded-md",
@@ -130,7 +130,7 @@ pub fn HomePage(cx: Scope) -> Element {
                             "Read More"
                         }
                     }
-                    
+
                 }
                 div {
                     class: "grid grid-cols-2 gap-4 mt-8",

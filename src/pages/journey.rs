@@ -11,7 +11,7 @@ pub fn JourneyPage(cx: Scope) -> Element {
                     src: "/images/dallegenerated.png",
                 }
                 div { class: "mt-4 md:mt-0",
-                    h2 { class: "mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white",
+                    h2 { class: "mb-4 text-4xl tracking-tight font-extrabold text-white",
                         "A bit more about me"
                     }
                     p { class: "font-light text-gray-500 md:text-lg dark:text-gray-400",
